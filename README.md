@@ -1,26 +1,72 @@
-```markdown
-# Infrastructure Automation
+infrastructure/
+├── README.md
+│
+├── iac/                         # Infrastructure definitions
+│   ├── modules/                 # Reusable IaC components
+│   │   ├── network/
+│   │   ├── compute/
+│   │   ├── database/
+│   │   ├── storage/
+│   │   └── monitoring/
+│   │
+│   ├── environments/            # Deployed infrastructure
+│   │   ├── development/
+│   │   ├── staging/
+│   │   └── production/
+│   │
+│   └── README.md
+│
+├── docker/                      # Reproducible tool environment
+│   ├── Dockerfile
+│   ├── compose.yaml
+│   ├── versions.env
+│   ├── entrypoint.sh
+│   └── README.md
+│
+├── scripts_and_tools/                     # Task-oriented automation
+│   ├── setup/
+│   ├── validation/
+│   ├── planning/
+│   ├── deployment/
+│   ├── maintenance/
+│   ├── reporting/
+│   ├── libraries/
+│   └── README.md
+│
+├── config/                      # Shared non-secret configuration
+│   ├── linting/
+│   ├── security/
+│   ├── logging/
+│   └── examples/
+│
+├── docs/                        # Human-readable documentation
+│   ├── getting-started/
+│   ├── architecture/
+│   ├── operations/
+│   ├── development/
+│   ├── reference/
+│   ├── decisions/
+│   ├── diagrams/
+│   └── README.md
+│
+├── artifacts/                   # Generated locally; usually ignored
+│   ├── plans/
+│   ├── reports/
+│   └── logs/
+│
+├── .github/
+│   ├── workflows/
+│   │   ├── validate.yml
+│   │   ├── test.yml
+│   │   ├── plan.yml
+│   │   ├── apply.yml
+│   │   ├── drift-detection.yml
+│   │   └── build-toolbox.yml
+│   ├── CODEOWNERS
+│   ├── dependabot.yml
+│   └── pull_request_template.md
+│
+├── .dockerignore
+├── .gitignore
+└── .env.example
 
-Infrastructure-as-code, Docker-based tooling, scripts, and documentation.
-
-## Structure
-
-```text
-iac/       Infrastructure modules and environments
-docker/    Reproducible toolchain and dependencies
-scripts/   Setup, validation, planning, and deployment
-tools/     Reusable utilities
-docs/      Architecture and operational guidance
-tests/     Infrastructure, script, and tool tests
-.github/   GitHub Actions configuration
-```
-
-## Usage
-
-```bash
-make toolbox
-make validate
-make test
-make plan ENV=development
-make apply ENV=development
-```
