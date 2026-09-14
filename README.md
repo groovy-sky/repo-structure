@@ -1,3 +1,4 @@
+```
 infrastructure/
 ├── README.md
 │
@@ -69,4 +70,103 @@ infrastructure/
 ├── .dockerignore
 ├── .gitignore
 └── .env.example
+```
 
+# Repository Structure Guide
+
+This document explains each section of the infrastructure repository and its purpose.
+
+## Root Level
+
+### `.github/`
+Contains GitHub-specific configuration and automation.
+
+- **`workflows/`** — GitHub Actions CI/CD pipelines
+  - `validate.yml` — Runs linting, syntax checks, and policy validation on all commits
+  - `test.yml` — Executes infrastructure, script, and tool tests
+  - `plan.yml` — Generates infrastructure change plans for review (terraform plan, pulumi preview, etc.)
+  - `apply.yml` — Applies approved infrastructure changes to environments
+  - `drift-detection.yml` — Periodic job detecting divergence between code and deployed state
+  - `build-toolbox.yml` — Builds and publishes the Docker toolbox image
+
+- **`CODEOWNERS`** — Defines code ownership and required reviewers by path
+- **`dependabot.yml`** — Automated dependency update configuration
+- **`pull_request_template.md`** — Template guiding PR authors with required sections and checks
+
+### `.dockerignore`
+Specifies files and directories excluded from Docker image builds (e.g., `.git`, `artifacts/`, `.env`).
+
+### `.gitignore`
+Excludes files from version control:
+- Generated artifacts (`plans/`, `reports/`, `logs/`, `*.tfstate`)
+- Local environment files (`.env`, `.env.local`)
+- Temporary files and caches
+- Secrets and credentials (never commit these)
+
+### `.env.example`
+Template showing required environment variables and configuration options. Users copy this to `.env` locally and populate with their values.
+
+---
+
+## `iac/` — Infrastructure-as-Code
+
+Core infrastructure definitions using declarative IaC tools (Terraform, Pulumi, CloudFormation, etc.).
+
+### `iac/modules/`
+Reusable, composable infrastructure components following DRY principles.
+
+- **`network/`** — VPCs, subnets, security groups, load balancers, NAT gateways
+- **`compute/`** — EC2 instances, Kubernetes clusters, container orchestration, auto-scaling
+- **`database/`** — RDS, DynamoDB, managed database services, backup policies
+- **`storage/`** — S3 buckets, blob storage, object retention, encryption policies
+- **`monitoring/`** — CloudWatch, Prometheus, logging pipelines, alerting rules
+
+Each module:
+- Is independently versioned and tested
+- Accepts configuration via input variables
+- Exports outputs for use by other modules
+- Includes inline documentation of required and optional inputs
+
+### `iac/environments/`
+Environment-specific infrastructure deployments.
+
+- **`development/`** — Minimal resources for development; rapid iteration, lower cost
+- **`staging/`** — Production-like configuration; used for pre-release testing and validation
+- **`production/`** — High-availability, disaster-recovery, security-hardened infrastructure
+
+Each environment:
+- References modules from `iac/modules/`
+- Applies environment-specific variables (instance sizes, backup retention, replica counts)
+- May include environment-specific resources (e.g., WAF rules for production only)
+- Follows consistent naming conventions for resources
+
+### `iac/README.md`
+Documents:
+- IaC tool setup and versioning
+- Module structure and reuse patterns
+- Environment configuration strategy
+- State management and locking
+- Common troubleshooting scenarios
+
+---
+
+## `docker/` — Reproducible Tool Environment
+
+Ensures consistent toolchain versions and dependencies across all team members and CI/CD pipelines.
+
+### `docker/Dockerfile`
+Defines the container image with:
+- Base OS image (typically lightweight Linux: Alpine, Debian)
+- Required CLI tools (terraform, kubectl, aws-cli, gcloud, helm, ansible, etc.)
+- Language runtimes (Python, Go, Node, etc.)
+- Git, make, curl, jq, and other utilities
+
+### `docker/compose.yaml`
+Orchestrates local development environment:
+- Mounts the repository into the container
+- Sets up environment variable files
+- Maps volumes for persistent data (e.g., Docker socket for nested Docker)
+- Exposes necessary ports for local testing
+
+### `docker/versions.env`
+Pins specific versions of all tools:
