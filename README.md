@@ -12,4 +12,4 @@ This repository is organized for infrastructure-as-code, container image definit
 - `artifacts/` — Local generated output (tracked only with a placeholder).
 - `.github/` — GitHub Actions resources, including required `.github/workflows/` scaffolding and reusable actions.
 
-See `Makefile` for currently available commands (`help` and `validate`).
+Current workflow files are placeholders for future automation. `make validate` currently performs a basic scaffold check (directory presence).

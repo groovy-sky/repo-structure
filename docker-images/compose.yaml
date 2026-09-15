@@ -1,4 +1,4 @@
 services:
   toolbox:
-    image: ghcr.io/example/iac-toolbox:latest
+    image: ghcr.io/example/iac-toolbox:0.0.1
     command: ["sh", "-c", "echo toolbox placeholder"]
