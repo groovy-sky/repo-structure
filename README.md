@@ -10,6 +10,6 @@ This repository is organized for infrastructure-as-code, container image definit
 - `config/` — Non-secret shared configuration.
 - `docs/` — Documentation and runbooks.
 - `artifacts/` — Local generated output (tracked only with a placeholder).
-- `.github/` — GitHub Actions workflows and reusable actions.
+- `.github/` — GitHub Actions resources, including required `.github/workflows/` scaffolding and reusable actions.
 
 See `Makefile` for currently available commands (`help` and `validate`).
