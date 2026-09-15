@@ -1,9 +1,19 @@
 .PHONY: help validate validate-workflows
 
+WORKFLOW_FILES := \
+	validate.yml \
+	build-docker-images.yml \
+	scan-docker-images.yml \
+	terraform.yml \
+	pulumi.yml \
+	ansible.yml \
+	deploy.yml \
+	drift-detection.yml
+
 help:
 	@echo "Available targets:"
 	@echo "  validate            - basic local scaffold validation"
-	@echo "  validate-workflows  - validate workflow scaffold presence"
+	@echo "  validate-workflows  - validate expected workflow scaffold files"
 
 validate:
 	@echo "Validating repository structure..."
@@ -15,7 +25,9 @@ validate:
 	@echo "Structure validation complete."
 
 validate-workflows:
-	@echo "Validating workflow scaffold presence..."
+	@echo "Validating expected workflow scaffold files..."
 	@test -d .github/workflows
-	@find .github/workflows -maxdepth 1 -type f -name '*.yml' | grep -q .
+	@for wf in $(WORKFLOW_FILES); do \
+		test -f .github/workflows/$$wf; \
+	done
 	@echo "Workflow scaffold validation complete."
