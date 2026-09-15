@@ -17,5 +17,5 @@ validate:
 validate-workflows:
 	@echo "Validating workflow scaffold presence..."
 	@test -d .github/workflows
-	@test "$$(find .github/workflows -maxdepth 1 -type f -name '*.yml' | wc -l)" -ge 1
+	@find .github/workflows -maxdepth 1 -type f -name '*.yml' | grep -q .
 	@echo "Workflow scaffold validation complete."
