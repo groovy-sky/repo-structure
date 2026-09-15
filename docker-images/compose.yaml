@@ -1,4 +1,4 @@
 services:
   toolbox:
-    image: ghcr.io/example/iac-toolbox:0.0.1
+    image: ${IAC_TOOLBOX_IMAGE:-iac-toolbox:local}
     command: ["sh", "-c", "echo toolbox placeholder"]

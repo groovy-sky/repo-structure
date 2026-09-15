@@ -12,4 +12,4 @@ This repository is organized for infrastructure-as-code, container image definit
 - `artifacts/` — Local generated output (tracked only with a placeholder).
 - `.github/` — GitHub Actions resources, including required `.github/workflows/` scaffolding and reusable actions.
 
-Current workflow files are placeholders for future automation. `make validate` checks local scaffold directories, and `make validate-workflows` checks expected workflow file presence.
+Current workflow files are placeholders for future automation. `make validate` checks local scaffold directories, and `make validate-workflows` checks that workflow scaffolding is present.

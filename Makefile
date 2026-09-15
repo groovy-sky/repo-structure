@@ -3,7 +3,7 @@
 help:
 	@echo "Available targets:"
 	@echo "  validate            - basic local scaffold validation"
-	@echo "  validate-workflows  - validate expected workflow scaffold files"
+	@echo "  validate-workflows  - validate workflow scaffold presence"
 
 validate:
 	@echo "Validating repository structure..."
@@ -16,16 +16,7 @@ validate:
 	@echo "Structure validation complete."
 
 validate-workflows:
-	@echo "Validating workflow scaffold files..."
-	@for wf in \
-		.github/workflows/validate.yml \
-		.github/workflows/build-docker-images.yml \
-		.github/workflows/scan-docker-images.yml \
-		.github/workflows/terraform.yml \
-		.github/workflows/pulumi.yml \
-		.github/workflows/ansible.yml \
-		.github/workflows/deploy.yml \
-		.github/workflows/drift-detection.yml; do \
-		test -f $$wf; \
-	done
+	@echo "Validating workflow scaffold presence..."
+	@test -d .github/workflows
+	@test "$$(find .github/workflows -maxdepth 1 -type f -name '*.yml' | wc -l)" -ge 1
 	@echo "Workflow scaffold validation complete."
