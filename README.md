@@ -168,5 +168,61 @@ Orchestrates local development environment:
 - Maps volumes for persistent data (e.g., Docker socket for nested Docker)
 - Exposes necessary ports for local testing
 
-### `docker/versions.env`
-Pins specific versions of all tools:
+---
+## Cross-repository reusable workflow
+
+A reusable workflow lets **Repo A run workflow logic stored in Repo B** without a PAT or custom secret.
+
+```text
+Repo A workflow → calls → Repo B reusable workflow
+```
+
+### Repo B: reusable workflow
+
+`.github/workflows/deploy.yml`
+
+```yaml
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploying to ${{ inputs.environment }}"
+```
+
+### Repo A: caller workflow
+
+```yaml
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    uses: my-org/repo-b/.github/workflows/deploy.yml@main
+    with:
+      environment: staging
+```
+
+### Key points
+
+- `workflow_call` makes Repo B’s workflow reusable.
+- It must be called at the **job level**, not inside `steps`.
+- Inputs work like function parameters.
+- It creates **one workflow run in Repo A**, not a separate run in Repo B.
+- For private Repo B, enable organization access under **Settings → Actions → General → Access**.
+- Prefer a version tag or commit SHA instead of `@main` for stability:
+
+```yaml
+uses: my-org/repo-b/.github/workflows/deploy.yml@v1
+```
