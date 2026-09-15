@@ -1,0 +1,7 @@
+.git
+.github
+artifacts
+**/.terraform
+**/.pulumi
+.env
+.env.*
