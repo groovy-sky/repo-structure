@@ -30,13 +30,8 @@ infrastructure/
 │   ├── compose.yaml
 │   └── README.md
 │
-├── automation/
-│   ├── bin/
-│   ├── lib/
-│   └── tests/
-│
+├── tpp;s/
 ├── config/
-├── policies/
 ├── docs/
 ├── artifacts/
 │
@@ -64,9 +59,8 @@ infrastructure/
 * .dockerignore — Excludes unnecessary or sensitive files from Docker build contexts.
 * iac/ — Terraform, Pulumi, and Ansible infrastructure definitions, organized using tool-specific layouts.
 * docker-images/ — Docker image definitions for GitHub runners, IaC tools, build environments, and shared base images.
-* automation/ — Scripts, commands, shared libraries, and tests used to automate repository tasks.
+* tools/ — Scripts, commands, shared libraries, and tests used to automate repository tasks.
 * config/ — Shared, non-secret configuration for linting, logging, security tools, and local development.
-* policies/ — Policy-as-code rules and approved exceptions for infrastructure, containers, and CI/CD.
 * docs/ — Architecture documentation, operational guides, decisions, runbooks, and diagrams.
 * artifacts/ — Locally generated plans, previews, logs, and reports; normally excluded from version control.
 * .github/ — GitHub Actions workflows, reusable actions, ownership rules, and pull request configuration.
