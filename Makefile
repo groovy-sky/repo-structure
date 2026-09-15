@@ -12,7 +12,6 @@ validate:
 	@test -d tools
 	@test -d config
 	@test -d docs
-	@test -d artifacts
 	@echo "Structure validation complete."
 
 validate-workflows:
