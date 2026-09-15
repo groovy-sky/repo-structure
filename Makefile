@@ -1,14 +1,22 @@
-.PHONY: help validate
+.PHONY: help validate validate-workflows
 
 help:
 	@echo "Available targets:"
-	@echo "  validate  - basic repository validation"
+	@echo "  validate            - basic local scaffold validation"
+	@echo "  validate-workflows  - validate expected workflow scaffold files"
 
 validate:
 	@echo "Validating repository structure..."
 	@test -d iac
 	@test -d docker-images
 	@test -d tools
+	@test -d config
+	@test -d docs
+	@test -d artifacts
+	@echo "Structure validation complete."
+
+validate-workflows:
+	@echo "Validating workflow scaffold files..."
 	@for wf in \
 		.github/workflows/validate.yml \
 		.github/workflows/build-docker-images.yml \
@@ -20,4 +28,4 @@ validate:
 		.github/workflows/drift-detection.yml; do \
 		test -f $$wf; \
 	done
-	@echo "Structure validation complete."
+	@echo "Workflow scaffold validation complete."
