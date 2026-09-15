@@ -1,0 +1,4 @@
+services:
+  toolbox:
+    image: ${IAC_TOOLBOX_IMAGE:-iac-toolbox:local}
+    command: ["sh", "-c", "echo toolbox placeholder"]

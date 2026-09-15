@@ -1,0 +1,24 @@
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+
+# Pulumi
+**/.pulumi/
+
+# Python / Ansible
+**/__pycache__/
+*.pyc
+
+# Build and logs
+artifacts/*
+!artifacts/.gitkeep
+*.log
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key

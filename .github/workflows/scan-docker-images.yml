@@ -1,0 +1,14 @@
+name: scan-docker-images
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Placeholder
+        run: echo "Workflow scaffold created for scan-docker-images."

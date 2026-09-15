@@ -1,66 +1,15 @@
-```
-infrastructure/
-├── README.md
-├── Makefile
-│
-├── iac/
-│   ├── terraform/
-│   │   ├── modules/
-│   │   ├── stacks/
-│   │   └── bootstrap/
-│   ├── pulumi/
-│   │   ├── components/
-│   │   └── projects/
-│   └── ansible/
-│       ├── collections/
-│       ├── playbooks/
-│       └── inventories/
-│
-├── docker-images/
-│   ├── github-runners/
-│   │   ├── base/
-│   │   ├── iac/
-│   │   └── build/
-│   ├── iac-tools/
-│   │   ├── terraform/
-│   │   ├── pulumi/
-│   │   ├── ansible/
-│   │   └── toolbox/
-│   ├── shared/
-│   ├── compose.yaml
-│   └── README.md
-│
-├── tpp;s/
-├── config/
-├── docs/
-├── artifacts/
-│
-└── .github/
-    ├── actions/
-    └── workflows/
-        ├── validate.yml
-        ├── build-docker-images.yml
-        ├── scan-docker-images.yml
-        ├── terraform.yml
-        ├── pulumi.yml
-        ├── ansible.yml
-        ├── deploy.yml
-        └── drift-detection.yml
-```
+# Infrastructure Repository Structure
 
+This repository is organized for infrastructure-as-code, container image definitions, CI workflows, and operational documentation.
 
-* README.md — Repository overview, prerequisites, architecture summary, and common usage instructions.
-* Makefile — Consistent commands for validation, testing, image builds, planning, and deployment.
-* CONTRIBUTING.md — Contribution process, coding standards, testing requirements, and pull request guidelines.
-* SECURITY.md — Security reporting process and repository-specific security practices.
-* .editorconfig — Common formatting rules across editors and file types.
-* .env.example — Example environment variables required for local development; contains no real secrets.
-* .gitignore — Excludes generated files, local configuration, state, plans, logs, caches, and secrets.
-* .dockerignore — Excludes unnecessary or sensitive files from Docker build contexts.
-* iac/ — Terraform, Pulumi, and Ansible infrastructure definitions, organized using tool-specific layouts.
-* docker-images/ — Docker image definitions for GitHub runners, IaC tools, build environments, and shared base images.
-* tools/ — Scripts, commands, shared libraries, and tests used to automate repository tasks.
-* config/ — Shared, non-secret configuration for linting, logging, security tools, and local development.
-* docs/ — Architecture documentation, operational guides, decisions, runbooks, and diagrams.
-* artifacts/ — Locally generated plans, previews, logs, and reports; normally excluded from version control.
-* .github/ — GitHub Actions workflows, reusable actions, ownership rules, and pull request configuration.
+## Top-level layout
+
+- `iac/` — Terraform, Pulumi, and Ansible source layouts.
+- `docker-images/` — Dockerfiles, shared image assets, and local compose definitions.
+- `tools/` — Utility scripts and supporting code used by this repository.
+- `config/` — Non-secret shared configuration.
+- `docs/` — Documentation and runbooks.
+- `artifacts/` — Local generated output (tracked only with a placeholder).
+- `.github/` — GitHub Actions resources, including `.github/workflows/` scaffolding and reusable actions.
+
+Current workflow files are placeholders for future automation. `make validate` checks the core local scaffold subset (`iac`, `docker-images`, `tools`, `config`, `docs`, `.github`). `artifacts/` is intentionally excluded because it holds local outputs. `.github/workflows/` and expected workflow placeholder files are checked via `make validate-workflows`.
