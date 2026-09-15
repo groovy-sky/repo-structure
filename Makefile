@@ -29,6 +29,6 @@ validate-workflows:
 	@echo "Validating expected workflow scaffold files..."
 	@test -d .github/workflows
 	@for wf in $(WORKFLOW_FILES); do \
-		test -f .github/workflows/$$wf; \
+		test -f .github/workflows/$$wf || { echo "Missing workflow: $$wf"; exit 1; }; \
 	done
 	@echo "Workflow scaffold validation complete."
