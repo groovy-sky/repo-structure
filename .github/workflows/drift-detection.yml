@@ -1,11 +1,14 @@
-name: Placeholder workflow
+name: drift-detection
 
 on:
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   placeholder:
     runs-on: ubuntu-latest
     steps:
       - name: Placeholder
-        run: echo "Workflow scaffold created."
+        run: echo "Workflow scaffold created for drift-detection."

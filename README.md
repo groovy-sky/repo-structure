@@ -12,4 +12,4 @@ This repository is organized for infrastructure-as-code, container image definit
 - `artifacts/` — Local generated output (tracked only with a placeholder).
 - `.github/` — GitHub Actions workflows and reusable actions.
 
-See `Makefile` for common commands.
+See `Makefile` for currently available commands (`help` and `validate`).
