@@ -7,7 +7,6 @@
 
 # Pulumi
 **/.pulumi/
-Pulumi.*.yaml
 
 # Python / Ansible
 **/__pycache__/

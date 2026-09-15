@@ -22,6 +22,7 @@ validate:
 	@test -d tools
 	@test -d config
 	@test -d docs
+	@test -d .github
 	@echo "Structure validation complete."
 
 validate-workflows:
